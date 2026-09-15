@@ -1,0 +1,2765 @@
+{
+    "name": "AI POWERED AIRBNB RENTAL BOOKING AUTOMATION",
+    "flow": [
+        {
+            "id": 12,
+            "module": "google-sheets:watchRows",
+            "version": 2,
+            "parameters": {
+                "mode": "map",
+                "limit": 1,
+                "sheetId": "Form Responses 1",
+                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE",
+                "spreadsheetId": "YOUR_SPREADSHEET_ID_HERE",
+                "tableFirstRow": "A1:Z1",
+                "includesHeaders": true,
+                "valueRenderOption": "FORMATTED_VALUE",
+                "dateTimeRenderOption": "FORMATTED_STRING"
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -22,
+                    "y": 446
+                },
+                "restore": {
+                    "parameters": {
+                        "mode": {
+                            "label": "Enter manually"
+                        },
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "LARA's Google connection (your-email@example.com)"
+                        },
+                        "includesHeaders": {
+                            "label": "Yes"
+                        },
+                        "valueRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted value"
+                        },
+                        "dateTimeRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted string"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    },
+                    {
+                        "name": "mode",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "select",
+                                "fromAll",
+                                "map"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit",
+                        "required": true
+                    },
+                    {
+                        "name": "valueRenderOption",
+                        "type": "select",
+                        "label": "Value render option",
+                        "validate": {
+                            "enum": [
+                                "FORMATTED_VALUE",
+                                "UNFORMATTED_VALUE",
+                                "FORMULA"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dateTimeRenderOption",
+                        "type": "select",
+                        "label": "Date and time render option",
+                        "validate": {
+                            "enum": [
+                                "SERIAL_NUMBER",
+                                "FORMATTED_STRING"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "text",
+                        "label": "Spreadsheet ID",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "text",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "tableFirstRow",
+                        "type": "text",
+                        "label": "Row with headers",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__ROW_NUMBER__",
+                        "type": "number",
+                        "label": "Row number"
+                    },
+                    {
+                        "name": "__SPREADSHEET_ID__",
+                        "type": "text",
+                        "label": "Spreadsheet ID"
+                    },
+                    {
+                        "name": "__SHEET__",
+                        "type": "text",
+                        "label": "Sheet"
+                    },
+                    {
+                        "name": "0",
+                        "type": "text",
+                        "label": "Timestamp (A)"
+                    },
+                    {
+                        "name": "1",
+                        "type": "text",
+                        "label": "Full Name (B)"
+                    },
+                    {
+                        "name": "2",
+                        "type": "text",
+                        "label": "Email Address (C)"
+                    },
+                    {
+                        "name": "3",
+                        "type": "text",
+                        "label": "Contact Number (D)"
+                    },
+                    {
+                        "name": "4",
+                        "type": "text",
+                        "label": "I am registering as a   (E)"
+                    },
+                    {
+                        "name": "5",
+                        "type": "text",
+                        "label": "Number of Guests / Pax (SMDC is very strict about passenger counts. Child ages 7 y/o below is considered 1 Guest) (F)"
+                    },
+                    {
+                        "name": "6",
+                        "type": "text",
+                        "label": "Which property are you inquiring about?   (G)"
+                    },
+                    {
+                        "name": "7",
+                        "type": "text",
+                        "label": "Preferred Stay / Rental Term   (H)"
+                    },
+                    {
+                        "name": "8",
+                        "type": "text",
+                        "label": "Your Message / Special Requests   (I)"
+                    },
+                    {
+                        "name": "9",
+                        "type": "text",
+                        "label": "What is your target check-in / move-in  date? (J)"
+                    },
+                    {
+                        "name": "10",
+                        "type": "text",
+                        "label": "What is your target check-out/move-out date? (K)"
+                    },
+                    {
+                        "name": "11",
+                        "type": "text",
+                        "label": "AI Categorization Summary (L)"
+                    },
+                    {
+                        "name": "12",
+                        "type": "text",
+                        "label": "AI Generated Email Draft (M)"
+                    },
+                    {
+                        "name": "13",
+                        "type": "text",
+                        "label": "(N)"
+                    },
+                    {
+                        "name": "14",
+                        "type": "text",
+                        "label": "(O)"
+                    },
+                    {
+                        "name": "15",
+                        "type": "text",
+                        "label": "(P)"
+                    },
+                    {
+                        "name": "16",
+                        "type": "text",
+                        "label": "(Q)"
+                    },
+                    {
+                        "name": "17",
+                        "type": "text",
+                        "label": "(R)"
+                    },
+                    {
+                        "name": "18",
+                        "type": "text",
+                        "label": "(S)"
+                    },
+                    {
+                        "name": "19",
+                        "type": "text",
+                        "label": "(T)"
+                    },
+                    {
+                        "name": "20",
+                        "type": "text",
+                        "label": "(U)"
+                    },
+                    {
+                        "name": "21",
+                        "type": "text",
+                        "label": "(V)"
+                    },
+                    {
+                        "name": "22",
+                        "type": "text",
+                        "label": "(W)"
+                    },
+                    {
+                        "name": "23",
+                        "type": "text",
+                        "label": "(X)"
+                    },
+                    {
+                        "name": "24",
+                        "type": "text",
+                        "label": "(Y)"
+                    },
+                    {
+                        "name": "25",
+                        "type": "text",
+                        "label": "(Z)"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 19,
+            "module": "google-calendar:searchEvents",
+            "version": 5,
+            "parameters": {
+                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+            },
+            "mapper": {
+                "calendar": "YOUR_CALENDAR_ID_HERE",
+                "timeMin": "{{parseDate(12.`9`; \"MM/DD/YYYY\")}}",
+                "timeMax": "{{addDays(parseDate(12.`10`; \"\"\"MM/DD/YYYY\"\"\"); 1)}}",
+                "singleEvents": false,
+                "q": "{{12.`6`}}",
+                "limit": "1"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 258,
+                    "y": 445
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "LARA's Google connection (your-email@example.com)",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "calendar": {
+                            "mode": "chose",
+                            "label": "Casa De Lara By SMDC"
+                        },
+                        "eventTypes": {
+                            "mode": "chose"
+                        },
+                        "orderBy": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "calendar",
+                        "type": "select",
+                        "label": "Calendar ID",
+                        "required": true
+                    },
+                    {
+                        "name": "timeMin",
+                        "type": "date",
+                        "label": "Start Date",
+                        "time": true
+                    },
+                    {
+                        "name": "timeMax",
+                        "type": "date",
+                        "label": "End Date",
+                        "time": true
+                    },
+                    {
+                        "name": "updatedMin",
+                        "type": "date",
+                        "label": "Updated from",
+                        "time": true
+                    },
+                    {
+                        "name": "singleEvents",
+                        "type": "boolean",
+                        "label": "Single Events",
+                        "required": true
+                    },
+                    {
+                        "name": "q",
+                        "type": "text",
+                        "label": "Query"
+                    },
+                    {
+                        "name": "eventTypes",
+                        "type": "select",
+                        "label": "Event Types",
+                        "multiple": true,
+                        "validate": {
+                            "enum": [
+                                "default",
+                                "fromGmail",
+                                "focusTime",
+                                "outOfOffice",
+                                "workingLocation"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "type": "select",
+                        "label": "Order By",
+                        "validate": {
+                            "enum": [
+                                "startTime",
+                                "updated"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 9,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 450
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 16,
+                            "module": "gemini-ai:createACompletionGeminiPro",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+                            },
+                            "filter": {
+                                "name": "Allow Bookings (Shore/Jazz)",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{19.`__IMTLENGTH__`}}",
+                                            "b": "0",
+                                            "o": "number:equal"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "model": "gemini-3.6-flash",
+                                "contents": [
+                                    {
+                                        "role": "user",
+                                        "parts": [
+                                            {
+                                                "text": "Guest Name: {{12.`1`}}\nRegistration Type: {{12.`4`}}\nTerm: {{12.`7`}}Property: {{12.`6`}}Check-In Date: {{12.`9`}}Check-Out Date:\n{{12.`10`}}Pax: {{12.`5`}}Message: {{12.`8`}}",
+                                                "type": "text"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "generationConfig": {
+                                    "imageConfig": {},
+                                    "thinkingConfig": {}
+                                },
+                                "system_instruction": {
+                                    "parts": [
+                                        {
+                                            "text": "You are an expert AI Operations Assistant for \"Casa De Lara by SMDC\" and an HTML design specialist. Your task is to analyze an incoming booking inquiry or message, extract the guest/broker details, determine the proper pricing category (Short, Extended, Monthly, or Yearly), calculate the exact breakdown of rates, and output a complete, fully-rendered HTML email response based on our official company matrix.\n\nREGISTRATION TYPES & EXCLUSIONS:\n1. Prospective Guest / Tenant: Standard pricing, payment rules, and refundable security deposit reservation policies apply.\n2. Licensed Real Estate Agent / Broker: Special long-term pricing, payment rules, and verification requirements apply. \n\nStandard Timings & Rules (Strictly enforced for property maintenance and turnover):\n- Standard Check-In: 2:00 PM | Standard Check-Out: 12:00 NN (22-Hour Stay).\n- Maximum occupancy limit is strictly 4 guests.\n- SMDC PMO Pool Pass Fee: Php 150/person/day (Php 300 on holidays).\n- STANDARD RESERVATION POLICY (Prospective Guest / Tenant Only): Guests must pay a Php 1,000.00 Security Deposit via BDO or GCash to reserve and lock in their requested dates. This security deposit is strictly NOT deducted from the room total; instead, it is safely held and fully refunded to the guest upon check-out after a successful room clearance inspection.\n- BROKER OCULAR & APPOINTMENT POLICY (Licensed Real Estate Agent / Broker Only): No reservation fee (Php 0.00) is required to book. However, the broker must submit a copy of their valid Broker/PRC ID to finalize an appointment for a physical unit ocular viewing.\n\nHere is our official pricing, location, and full package inclusion matrix:\n1. JAZZ RESIDENCES, MAKATI (Tower B) - Matrix:\n   - Google Maps Location Link: "YOUR_PROPERTY_MAP_LINK_HERE"   - Package Inclusions: An Executive Makati City Skyline and Pool-view, fully interiored 1-bedroom unit with a private balcony. Includes high-speed Wi-Fi, a Smart TV with complimentary Netflix, a plush queen-sized bed, a premium sofa, and a convertible sofa bed. Guests are provided fresh linens, bath towels, and a complete toiletry kit (shampoo, body wash, and a dental set). Equipped with a hot and cold shower, full air conditioning, a dedicated dining workspace, and a fully equipped kitchen featuring complete utensils, kitchenware, a rice cooker, an electric kettle, a microwave, and a mid-sized refrigerator.\n   - Short Stay (1 to 3 Days) Pricing:\n     * Weekdays (Mon-Thu): 1-2 Pax: PHP 2,199.00 | 3 Pax: PHP 2,499.00 | 4 Pax: PHP 2,799.00 per night.\n     * Weekends (Fri-Sun): 1-2 Pax: PHP 2,499.00 | 3 Pax: PHP 2,499.00 | 4 Pax: PHP 3,199.00 per night.\n   - Extended Stay (4+ Days) Pricing:\n     * Weekdays (Mon-Thu): 1-2 Pax: PHP 1,899.00 | 3 Pax: PHP 2,199.00 | 4 Pax: PHP 2,499.00 per night.\n     * Weekends (Fri-Sun): 1-2 Pax: PHP 2,100.00 | 3 Pax: PHP 2,499.00 | 4 Pax: PHP 2,999.00 per night.\n   - Monthly Lease: Base rate of PHP 30,000.00 per month for 1-2 guests (Inquire for 3-4 pax rates).\n   - Yearly Contract: Base rate of PHP 20,000.00 per month for 1-2 guests (Inquire for 3-4 pax rates).\n   \n2. SHORE RESIDENCES, PASAY (Tower A) - Matrix:\n   - Google Maps Location Link: "YOUR_PROPERTY_MAP_LINK_HERE"   - Inclusions:  A fully interiored 1-bedroom unit with a Manila Bay view relaxation balcony. Includes high-speed Wi-Fi, a Smart TV with complimentary Netflix, an entertainment gaming console, and an integrated karaoke setup. Sleeping arrangements feature a plush queen-sized bed, two comfortable sofas, and an extra mattress for groups. Guests receive fresh luxury linens, bath towels, and an artisan toiletry kit (shampoo, body wash, and dental set). Features a hot and cold rainfall shower, full air conditioning, a dedicated dining area, and a fully equipped kitchen featuring complete premium utensils, kitchenware, a rice cooker, an electric kettle, a microwave, and a full-sized refrigerator.\n   - Short Stay (1 to 3 Days) Pricing:\n     * Weekdays (Mon-Thu): 1-2 Pax: PHP 1,999.00 | 3 Pax: PHP 2,299.00 | 4 Pax: PHP 2,599.00 per night.\n     * Weekends (Fri-Sun): 1-2 Pax: PHP 2,299.00 | 3 Pax: PHP 2,599.00 | 4 Pax: PHP 2,899.00 per night.\n   - Extended Stay (4+ Days) Pricing:\n     * Weekdays (Mon-Thu): 1-2 Pax: PHP 1,599.00 | 3 Pax: PHP 1,999.00 | 4 Pax: PHP 2,299.00 per night.\n     * Weekends (Fri-Sun): 1-2 Pax: PHP 1,999.00 | 3 Pax: PHP 2,299.00 | 4 Pax: PHP 2,599.00 per night.\n   - Monthly Lease: Base rate of PHP 30,000.00 per month for 1-2 guests (Inquire for 3-4 pax rates).\n   - Yearly Contract: Base rate of PHP 20,000.00 per month for 1-2 guests (Inquire for 3-4 pax rates).\n\n\nCRITICAL LONG-TERM LEASE CONDITIONS FOR LICENSED REAL ESTATE AGENTS / BROKERS:\nIf registration type is \"Licensed Real Estate Agent / Broker\", enforce these strict rules:\n- Base Rates for Monthly and Yearly packages are strictly fixed for 1-2 pax only.\n- Instruct the agent that they must add their own target/estimated commission on top of our base price when quoting their client.\n- Monthly Rental Payment Terms: Require a total of 2 months' worth of rent (1 Month Advance + 1 Month Security Deposit).\n- Yearly Rental Payment Terms: Require a total of 3 months' worth of rent (1 Month Advance + 2 Months Security Deposit).\n\nPROCESSING INSTRUCTIONS:\n1. Extract Prospective Guest/Tenant/Licensed Real Estate Agent/Broker Name, Location, Registration Type, Stay Duration Type (Short, Extended, Monthly, or Yearly), Move-In/Check-Out Dates, and Guest Count.\n2. For Short/Extended stays, calculate how many nights fall on Weekdays vs. Weekends.\n3. Match variables against the matrix rules to find the exact per-night rates or long-term base package.\n4. Calculate financial subtotal table dynamically:\n   - For Prospective Guest / Tenant: Calculate the Room Total based on nights stayed. The PHP 1,000.00 Security Deposit must be listed as a separate, fully refundable holding line item. The final Balance Due upon Move-in is equal to the full Room Total. (Do NOT deduct the 1,000 from the room total, as it is returned at check-out).\n   - For Licensed Real Estate Agent / Broker (Monthly): Itemize line rows for 1 Month Advance and 1 Month Security Deposit based on the base price. Show a reservation line item of Php 0.00.\n   - For Licensed Real Estate Agent / Broker (Yearly): Itemize line rows for 1 Month Advance and 2 Months Security Deposit based on the base price. Show a reservation line item of Php 0.00.\n5. Populate all extracted information dynamically into the template framework structural layout provided below.\n\nOUTPUT FORMAT REQUIREMENT:\nYou must output ONLY raw, valid HTML code inside a single block. Do NOT wrap your response in markdown formatting or code fences (do NOT use ```html or ```). Your response must begin directly with <!DOCTYPE html> and end with </html>.\nHTML TEMPLATE TO POPULATE AND RETURN:\n\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Booking Summary - Casa De Lara by SMDC</title>\n</head>\n<body>\n<div class=\"card\">\n<h2>BOOKING SUMMARY</h2>\n<div class=\"grid\">\n<div class=\"meta-item\"><span class=\"meta-label\">Guest Name: Mr./Ms. </span><span class=\"meta-value\"><strong>[Extracted Name]</strong></span></div>\n<div class=\"meta-item\"><span class=\"meta-label\">Registration Type: </span><span class=\"meta-value\"><strong>[Extracted Registration Type]</strong></span></div>\n<div class=\"meta-item\"><span class=\"meta-label\">Property: </span><span class=\"meta-value\"><strong>[Extracted Location Block]</strong></span></div>\n<a href=\"[Extracted Google Maps Link]\" class=\"btn\" target=\"_blank\"><strong>📍 View Location on Google Maps</strong></a>\n<div class=\"meta-item\"><span class=\"meta-label\">Booking Duration: </span><span class=\"meta-value\"><strong>[Extracted Dates & Type]</strong></span></div>\n<div class=\"meta-item\"><span class=\"meta-label\">Guest Count: </span><span class=\"meta-value\"><strong>[Extracted Pax Count]</strong></span></div>\n</div>\n\n<h2 style=\"margin-top: 25px;\">VERIFICATION CHECK</h2>\n<div class=\"grid\">\n<div class=\"meta-item\">\n<span class=\"meta-label\">Government / PRC ID - </span>\n<span class=\"status-badge status-pending\"><strong>PENDING</strong></span>\n</div>\n<div class=\"meta-item\">\n<span class=\"meta-label\">Reservation Receipt -</span>\n<span class=\"status-badge status-pending\"><strong>[PENDING for Tenants / NOT REQUIRED for Broker Ocular]</strong></span>\n</div>\n</div>\n</div>\n<div class=\"card\">\n<h2>MESSAGE DETAILS</h2>\n<div class=\"email-body\">\nDear Mr./Ms. <strong>[Extracted Name]</strong>,<br>\n<br>\n<div></div>\nThank you so much for reaching out to Casa De Lara! [Insert personalized greeting based on registration type. \n  - If Licensed Real Estate Agent / Broker: \"Welcome our partner! We are pleased to inform you that our premium unit at <strong>[Extracted Unit Requested]</strong> is open for viewing for your requested duration of <strong>[Extracted Booking Duration]</strong>.\"\n  - If Prospective Guest / Tenant: \"Welcome to our home! We would be absolutely thrilled to host you at our premium unit at <strong>[Extracted Unit Requested]</strong> for your upcoming stay from <strong>[Extracted Booking Duration]</strong>.\"]<br>\n<br>\n<div></div>\n[Insert relevant Package Inclusions here based on the selected location matrix].<br><br>\n        \n        <!-- AGENT COMMISSION BANNER: Show ONLY if Registration Type is Licensed Real Estate Agent / Broker and type is Monthly/Yearly. OMIT COMPLETELY IF Prospective Guest / Tenant. -->\n        <div class=\"agent-notice-box\">\n            <strong>💡 BROKER PARTNER COMMISSION:</strong><br>\n            Please note that our MONTHLY and YEARLY structural RATES listed below are strictly fixed base prices for 1-2 pax occupancy. You are <strong>required</strong> to calculate and append your own estimated target commission markup <strong>ON TOP OF OUR BASE PRICES</strong> when presenting this rate quote configuration to your end client.\n        </div>\n</div>\n\n<div class=\"cost-box\">\n  <h2>COST ESTIMATION BREAKDOWN</h2>\n  <table class=\"cost-table\" style=\"width: 100%; border-collapse: collapse;\">\n    <thead>\n      <tr>\n        <th style=\"text-align: left; padding-bottom: 12px;\">DESCRIPTION</th>\n        <th style=\"text-align: left; padding-bottom: 12px;\">DETAILS</th>\n        <th style=\"text-align: left; padding-bottom: 12px;\">AMOUNT</th>\n      </tr>\n    </thead>\n    <tbody>\n      <!-- DYNAMIC CORE ROWS (AI must choose based on matching logic) -->\n      [Insert Itemized Rows]\n      <tr class=\"deposit-row\" style=\"color: #2b6cb0; font-weight: 500;\">\n        <td style=\"padding: 12px 0;\">Reservation Security Deposit</td>\n        <td style=\"padding: 12px 0;\">[Refundable at Check-out (Tenants) / Ocular Appointment (Brokers)]</td>\n        <td style=\"padding: 12px 0;\">[ Php 1,000.00 (Held) / NOT REQUIRED FOR OCULAR ]</td>\n      </tr>\n      <tr class=\"balance-row\">\n        <td style=\"padding: 12px 0; font-weight: bold;\">Total Balance Outright Due</td>\n        <td style=\"padding: 12px 0;\"></td>\n        <td style=\"padding: 12px 0; font-weight: bold;\">[Final Calculation]</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<!-- DYNAMIC PAYMENT DISPLAY INSTRUCTION: \n     - IF user is a Prospective Guest / Tenant: You MUST completely output the full <div class=\"payment-section\"> block below.\n     - IF user is a Licensed Real Estate Agent / Broker: You MUST completely OMIT, hide, and delete the entire <div class=\"payment-section\"> block from your code output.\n-->\n<div class=\"payment-section\">\n<h2>SECURE RESERVATIONt</h2>\n<p style=\"font-size: 0.95rem; color: #000000; margin: 0 0 8px 0;\">To guarantee your schedule and complete your reservation, we kindly request a <strong>security deposit of PHP 1,000.00</strong> using either of the provided channels. Please note that this amount is <strong>fully refundable upon check-out</strong> once the standard clearance inspection is completed.</p>\n<div class=\"payment-container\">\n<div class=\"payment-card\">\n<h4>BANK TRANSFER</h4>\n<div class=\"payment-details\">\nBank Name: <strong>BDO</strong><br>\nAccount Name: <strong>Lara Joy Santos</strong><br>\nAccount No: <strong>0000-0000-0000</strong>\n</div>\n</div>\n<div class=\"payment-card\">\n<h4>DIGITAL WALLET</h4>\n<div class=\"payment-details\">\nWallet Name: <strong>GCASH</strong><br>\nAccount Name: <strong>Lara Joy Santos</strong><br>\nMobile No: <strong>09XX-XXX-XXXX</strong>\n</div>\n</div>\n</div>\n</div>\n<br>\n<br>\n<div class=\"alert-box\">\n<strong>Important Unit Rules & Pool Fees:</strong>\n<ul>\n<li>Strict 4-guest occupancy limit.</li>\n<li>Check-in: 2:00 PM | Check-out: 12:00 NN (Standard 22-hour schedule).</li>\n<li>Pool Pass Fee: SMDC PMO requires a pool access fee of Php 150 per person per day (Php 300 on holidays).</li>\n</ul>\n<strong>ACTION REQUIRED:</strong> \n[Insert dynamic next steps text: \n - If Prospective Guest / Tenant: \"Please reply with a copy of your <strong>valid government-issued ID and reservation receipt</strong> to confirm your booking and change verification statuses from <strong>PENDING to VERIFIED</strong>. This allows us to process your official <strong>Admin-approved Guest Authorization Form</strong> for seamless lobby clearance.\"\n - If Licensed Real Estate Agent / Broker: \"Please provide a copy of your <strong>valid Broker/PRC ID/strong> to finalize the schedule and confirm your physical unit ocular viewing appointment.\"]\n</div>\n</div>\n</body>\n</html>"
+                                        }
+                                    ]
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": 310
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "model": {
+                                            "mode": "chose",
+                                            "label": "Gemini 3.6 Flash"
+                                        },
+                                        "contents": {
+                                            "mode": "chose",
+                                            "items": [
+                                                {
+                                                    "role": {
+                                                        "mode": "chose",
+                                                        "label": "User"
+                                                    },
+                                                    "parts": {
+                                                        "mode": "chose",
+                                                        "items": [
+                                                            {
+                                                                "type": {
+                                                                    "mode": "chose",
+                                                                    "label": "Text"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "serviceTier": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "url_context": {
+                                            "mode": "chose"
+                                        },
+                                        "code_execution": {
+                                            "mode": "chose"
+                                        },
+                                        "safetySettings": {
+                                            "mode": "chose"
+                                        },
+                                        "generationConfig": {
+                                            "nested": {
+                                                "imageConfig": {
+                                                    "nested": {
+                                                        "imageSize": {
+                                                            "mode": "chose",
+                                                            "label": "Empty"
+                                                        }
+                                                    }
+                                                },
+                                                "stopSequences": {
+                                                    "mode": "chose"
+                                                },
+                                                "thinkingConfig": {
+                                                    "nested": {
+                                                        "thinking_level": {
+                                                            "mode": "chose",
+                                                            "label": "Empty"
+                                                        },
+                                                        "include_thoughts": {
+                                                            "mode": "chose"
+                                                        }
+                                                    }
+                                                },
+                                                "mediaResolution": {
+                                                    "mode": "chose",
+                                                    "label": "Empty"
+                                                },
+                                                "responseMimeType": {
+                                                    "mode": "chose",
+                                                    "label": "Empty"
+                                                },
+                                                "responseModalities": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        },
+                                        "system_instruction": {
+                                            "nested": {
+                                                "parts": {
+                                                    "mode": "chose",
+                                                    "items": [
+                                                        null
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "google_maps_context": {
+                                            "mode": "chose"
+                                        },
+                                        "google_search_context": {
+                                            "mode": "chose"
+                                        },
+                                        "file_search_store_context": {
+                                            "mode": "chose"
+                                        },
+                                        "function_declarations_context": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "gemini-ai"
+                                            },
+                                            "label": "LARA's Gemini AI connection"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:gemini-ai",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "model",
+                                        "type": "select",
+                                        "label": "AI Model",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "contents",
+                                        "spec": [
+                                            {
+                                                "name": "role",
+                                                "type": "select",
+                                                "label": "Role",
+                                                "options": [
+                                                    {
+                                                        "label": "User",
+                                                        "value": "user"
+                                                    },
+                                                    {
+                                                        "label": "Model",
+                                                        "value": "model"
+                                                    }
+                                                ],
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "parts",
+                                                "spec": [
+                                                    {
+                                                        "name": "type",
+                                                        "type": "select",
+                                                        "label": "Message Type",
+                                                        "options": [
+                                                            {
+                                                                "label": "Text",
+                                                                "value": "text",
+                                                                "nested": [
+                                                                    {
+                                                                        "name": "text",
+                                                                        "type": "text",
+                                                                        "label": "Text",
+                                                                        "required": true
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "label": "File",
+                                                                "value": "file",
+                                                                "nested": [
+                                                                    {
+                                                                        "name": "file_data",
+                                                                        "spec": [
+                                                                            {
+                                                                                "name": "mime_type",
+                                                                                "type": "text",
+                                                                                "label": "Mime Type",
+                                                                                "required": true
+                                                                            },
+                                                                            {
+                                                                                "help": "You can use public or signed URLs as input by using the URLs.",
+                                                                                "name": "file_uri",
+                                                                                "type": "text",
+                                                                                "label": "File URI",
+                                                                                "required": true
+                                                                            }
+                                                                        ],
+                                                                        "type": "collection",
+                                                                        "label": "File Data",
+                                                                        "required": true
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "label": "Function Call",
+                                                                "value": "functionCall",
+                                                                "nested": [
+                                                                    {
+                                                                        "name": "functionCall",
+                                                                        "spec": [
+                                                                            {
+                                                                                "help": "The name of the function to call.",
+                                                                                "name": "name",
+                                                                                "type": "text",
+                                                                                "label": "Name",
+                                                                                "required": true,
+                                                                                "validate": {
+                                                                                    "max": 64
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "help": "The function parameters and values in JSON object format.",
+                                                                                "name": "args",
+                                                                                "type": "json",
+                                                                                "label": "Arguments"
+                                                                            },
+                                                                            {
+                                                                                "help": "The unique ID of the function call.",
+                                                                                "name": "id",
+                                                                                "type": "text",
+                                                                                "label": "Function Call ID"
+                                                                            }
+                                                                        ],
+                                                                        "type": "collection",
+                                                                        "label": "Function Call"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "label": "Function Response",
+                                                                "value": "functionResponse",
+                                                                "nested": [
+                                                                    {
+                                                                        "name": "functionResponse",
+                                                                        "spec": [
+                                                                            {
+                                                                                "help": "The name of the function to call.",
+                                                                                "name": "name",
+                                                                                "type": "text",
+                                                                                "label": "Name",
+                                                                                "required": true,
+                                                                                "validate": {
+                                                                                    "max": 64
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "help": "The function response in JSON object format.",
+                                                                                "name": "response",
+                                                                                "type": "json",
+                                                                                "label": "Response",
+                                                                                "required": true
+                                                                            }
+                                                                        ],
+                                                                        "type": "collection",
+                                                                        "label": "Function Response"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "thoughtSignature",
+                                                        "type": "text",
+                                                        "label": "Thought Signature"
+                                                    }
+                                                ],
+                                                "type": "array",
+                                                "label": "Parts",
+                                                "required": true
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Messages",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "system_instruction",
+                                        "spec": [
+                                            {
+                                                "name": "parts",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "spec": [
+                                                        {
+                                                            "name": "text",
+                                                            "type": "text",
+                                                            "label": "Value"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Prompt"
+                                                },
+                                                "type": "array",
+                                                "label": "Prompts"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "System Instructions"
+                                    },
+                                    {
+                                        "name": "safetySettings",
+                                        "spec": [
+                                            {
+                                                "name": "category",
+                                                "type": "select",
+                                                "label": "Category",
+                                                "options": [
+                                                    {
+                                                        "label": "Harassment content",
+                                                        "value": "HARM_CATEGORY_HARASSMENT"
+                                                    },
+                                                    {
+                                                        "label": "Hate speech and content",
+                                                        "value": "HARM_CATEGORY_HATE_SPEECH"
+                                                    },
+                                                    {
+                                                        "label": "Sexually explicit content.",
+                                                        "value": "HARM_CATEGORY_SEXUALLY_EXPLICIT"
+                                                    },
+                                                    {
+                                                        "label": "Dangerous content:",
+                                                        "value": "HARM_CATEGORY_DANGEROUS_CONTENT"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "threshold",
+                                                "type": "select",
+                                                "label": "Threshold",
+                                                "options": [
+                                                    {
+                                                        "label": "Block low and above.",
+                                                        "value": "BLOCK_LOW_AND_ABOVE"
+                                                    },
+                                                    {
+                                                        "label": "Block medium and above.",
+                                                        "value": "BLOCK_MEDIUM_AND_ABOVE"
+                                                    },
+                                                    {
+                                                        "label": "Block only high.",
+                                                        "value": "BLOCK_ONLY_HIGH"
+                                                    },
+                                                    {
+                                                        "label": "Block none.",
+                                                        "value": "BLOCK_NONE"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Safety Settings"
+                                    },
+                                    {
+                                        "name": "generationConfig",
+                                        "spec": [
+                                            {
+                                                "name": "stopSequences",
+                                                "spec": {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Stop Sequence"
+                                                },
+                                                "type": "array",
+                                                "label": "Stop Sequences"
+                                            },
+                                            {
+                                                "name": "responseModalities",
+                                                "type": "select",
+                                                "label": "Response Modalities",
+                                                "multiple": true,
+                                                "validate": {
+                                                    "enum": [
+                                                        "text",
+                                                        "image"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "maxOutputTokens",
+                                                "type": "number",
+                                                "label": "Max Output Tokens"
+                                            },
+                                            {
+                                                "name": "temperature",
+                                                "type": "number",
+                                                "label": "Temperature",
+                                                "validate": {
+                                                    "max": 1,
+                                                    "min": 0
+                                                }
+                                            },
+                                            {
+                                                "name": "topP",
+                                                "type": "number",
+                                                "label": "Top P",
+                                                "validate": {
+                                                    "max": 1,
+                                                    "min": 0
+                                                }
+                                            },
+                                            {
+                                                "name": "topK",
+                                                "type": "number",
+                                                "label": "Top K"
+                                            },
+                                            {
+                                                "name": "thinkingConfig",
+                                                "spec": [
+                                                    {
+                                                        "name": "thinkingBudget",
+                                                        "type": "number",
+                                                        "label": "Thinking Budget"
+                                                    },
+                                                    {
+                                                        "name": "include_thoughts",
+                                                        "type": "boolean",
+                                                        "label": "Include Thoughts"
+                                                    },
+                                                    {
+                                                        "name": "thinking_level",
+                                                        "type": "select",
+                                                        "label": "Thinking Level",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "low",
+                                                                "high"
+                                                            ]
+                                                        }
+                                                    }
+                                                ],
+                                                "type": "collection",
+                                                "label": "Thinking Config"
+                                            },
+                                            {
+                                                "name": "mediaResolution",
+                                                "type": "select",
+                                                "label": "Media Resolution",
+                                                "validate": {
+                                                    "enum": [
+                                                        "media_resolution_low",
+                                                        "media_resolution_medium",
+                                                        "media_resolution_high"
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "imageConfig",
+                                                "spec": [
+                                                    {
+                                                        "name": "imageSize",
+                                                        "type": "select",
+                                                        "label": "Image Size",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "1K",
+                                                                "2K",
+                                                                "4K"
+                                                            ]
+                                                        }
+                                                    }
+                                                ],
+                                                "type": "collection",
+                                                "label": "Image Configuration"
+                                            },
+                                            {
+                                                "name": "responseMimeType",
+                                                "type": "select",
+                                                "label": "Response Format"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Generation configurations"
+                                    },
+                                    {
+                                        "name": "tools",
+                                        "type": "any",
+                                        "label": "Tools"
+                                    },
+                                    {
+                                        "name": "tool_config",
+                                        "type": "any",
+                                        "label": "Tool Config"
+                                    },
+                                    {
+                                        "name": "function_declarations_context",
+                                        "type": "boolean",
+                                        "label": "Function Declarations Grounding"
+                                    },
+                                    {
+                                        "name": "url_context",
+                                        "type": "boolean",
+                                        "label": "URL Context"
+                                    },
+                                    {
+                                        "name": "google_search_context",
+                                        "type": "boolean",
+                                        "label": "Google Search Grounding"
+                                    },
+                                    {
+                                        "name": "code_execution",
+                                        "type": "boolean",
+                                        "label": "Code Execution"
+                                    },
+                                    {
+                                        "name": "google_maps_context",
+                                        "type": "boolean",
+                                        "label": "Google Maps Grounding"
+                                    },
+                                    {
+                                        "name": "file_search_store_context",
+                                        "type": "boolean",
+                                        "label": "File Search Store Context"
+                                    },
+                                    {
+                                        "name": "serviceTier",
+                                        "type": "select",
+                                        "label": "Inference Service Tier"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 15,
+                            "module": "google-sheets:updateRow",
+                            "version": 2,
+                            "parameters": {
+                                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+                            },
+                            "mapper": {
+                                "mode": "map",
+                                "values": {
+                                    "11": "{{12.`11`}}",
+                                    "12": "{{12.`12`}}"
+                                },
+                                "sheetId": "Form Responses 1",
+                                "rowNumber": "{{12.`__ROW_NUMBER__`}}",
+                                "spreadsheetId": "YOUR_SPREADSHEET_ID_HERE",
+                                "tableFirstRow": "A1:Z1",
+                                "valueInputOption": "USER_ENTERED"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1223,
+                                    "y": 297
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "mode": {
+                                            "label": "Enter manually"
+                                        },
+                                        "tableFirstRow": {
+                                            "label": "A-Z",
+                                            "nested": [
+                                                {
+                                                    "name": "values",
+                                                    "spec": [
+                                                        {
+                                                            "name": "0",
+                                                            "type": "text",
+                                                            "label": "A"
+                                                        },
+                                                        {
+                                                            "name": "1",
+                                                            "type": "text",
+                                                            "label": "B"
+                                                        },
+                                                        {
+                                                            "name": "2",
+                                                            "type": "text",
+                                                            "label": "C"
+                                                        },
+                                                        {
+                                                            "name": "3",
+                                                            "type": "text",
+                                                            "label": "D"
+                                                        },
+                                                        {
+                                                            "name": "4",
+                                                            "type": "text",
+                                                            "label": "E"
+                                                        },
+                                                        {
+                                                            "name": "5",
+                                                            "type": "text",
+                                                            "label": "F"
+                                                        },
+                                                        {
+                                                            "name": "6",
+                                                            "type": "text",
+                                                            "label": "G"
+                                                        },
+                                                        {
+                                                            "name": "7",
+                                                            "type": "text",
+                                                            "label": "H"
+                                                        },
+                                                        {
+                                                            "name": "8",
+                                                            "type": "text",
+                                                            "label": "I"
+                                                        },
+                                                        {
+                                                            "name": "9",
+                                                            "type": "text",
+                                                            "label": "J"
+                                                        },
+                                                        {
+                                                            "name": "10",
+                                                            "type": "text",
+                                                            "label": "K"
+                                                        },
+                                                        {
+                                                            "name": "11",
+                                                            "type": "text",
+                                                            "label": "L"
+                                                        },
+                                                        {
+                                                            "name": "12",
+                                                            "type": "text",
+                                                            "label": "M"
+                                                        },
+                                                        {
+                                                            "name": "13",
+                                                            "type": "text",
+                                                            "label": "N"
+                                                        },
+                                                        {
+                                                            "name": "14",
+                                                            "type": "text",
+                                                            "label": "O"
+                                                        },
+                                                        {
+                                                            "name": "15",
+                                                            "type": "text",
+                                                            "label": "P"
+                                                        },
+                                                        {
+                                                            "name": "16",
+                                                            "type": "text",
+                                                            "label": "Q"
+                                                        },
+                                                        {
+                                                            "name": "17",
+                                                            "type": "text",
+                                                            "label": "R"
+                                                        },
+                                                        {
+                                                            "name": "18",
+                                                            "type": "text",
+                                                            "label": "S"
+                                                        },
+                                                        {
+                                                            "name": "19",
+                                                            "type": "text",
+                                                            "label": "T"
+                                                        },
+                                                        {
+                                                            "name": "20",
+                                                            "type": "text",
+                                                            "label": "U"
+                                                        },
+                                                        {
+                                                            "name": "21",
+                                                            "type": "text",
+                                                            "label": "V"
+                                                        },
+                                                        {
+                                                            "name": "22",
+                                                            "type": "text",
+                                                            "label": "W"
+                                                        },
+                                                        {
+                                                            "name": "23",
+                                                            "type": "text",
+                                                            "label": "X"
+                                                        },
+                                                        {
+                                                            "name": "24",
+                                                            "type": "text",
+                                                            "label": "Y"
+                                                        },
+                                                        {
+                                                            "name": "25",
+                                                            "type": "text",
+                                                            "label": "Z"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Values in columns"
+                                                }
+                                            ]
+                                        },
+                                        "valueInputOption": {
+                                            "mode": "chose",
+                                            "label": "User entered"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "LARA's Google connection (your-email@example.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "mode",
+                                        "type": "select",
+                                        "label": "Search Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "select",
+                                                "fromAll",
+                                                "map"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "valueInputOption",
+                                        "type": "select",
+                                        "label": "Value input option",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "USER_ENTERED",
+                                                "RAW"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "spreadsheetId",
+                                        "type": "text",
+                                        "label": "Spreadsheet ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "sheetId",
+                                        "type": "text",
+                                        "label": "Sheet Name",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "rowNumber",
+                                        "type": "uinteger",
+                                        "label": "Row number",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "tableFirstRow",
+                                        "type": "select",
+                                        "label": "Column range",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "A1:Z1",
+                                                "A1:BZ1",
+                                                "A1:CZ1",
+                                                "A1:DZ1",
+                                                "A1:MZ1",
+                                                "A1:ZZ1"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "values",
+                                        "spec": [
+                                            {
+                                                "name": "0",
+                                                "type": "text",
+                                                "label": "A"
+                                            },
+                                            {
+                                                "name": "1",
+                                                "type": "text",
+                                                "label": "B"
+                                            },
+                                            {
+                                                "name": "2",
+                                                "type": "text",
+                                                "label": "C"
+                                            },
+                                            {
+                                                "name": "3",
+                                                "type": "text",
+                                                "label": "D"
+                                            },
+                                            {
+                                                "name": "4",
+                                                "type": "text",
+                                                "label": "E"
+                                            },
+                                            {
+                                                "name": "5",
+                                                "type": "text",
+                                                "label": "F"
+                                            },
+                                            {
+                                                "name": "6",
+                                                "type": "text",
+                                                "label": "G"
+                                            },
+                                            {
+                                                "name": "7",
+                                                "type": "text",
+                                                "label": "H"
+                                            },
+                                            {
+                                                "name": "8",
+                                                "type": "text",
+                                                "label": "I"
+                                            },
+                                            {
+                                                "name": "9",
+                                                "type": "text",
+                                                "label": "J"
+                                            },
+                                            {
+                                                "name": "10",
+                                                "type": "text",
+                                                "label": "K"
+                                            },
+                                            {
+                                                "name": "11",
+                                                "type": "text",
+                                                "label": "L"
+                                            },
+                                            {
+                                                "name": "12",
+                                                "type": "text",
+                                                "label": "M"
+                                            },
+                                            {
+                                                "name": "13",
+                                                "type": "text",
+                                                "label": "N"
+                                            },
+                                            {
+                                                "name": "14",
+                                                "type": "text",
+                                                "label": "O"
+                                            },
+                                            {
+                                                "name": "15",
+                                                "type": "text",
+                                                "label": "P"
+                                            },
+                                            {
+                                                "name": "16",
+                                                "type": "text",
+                                                "label": "Q"
+                                            },
+                                            {
+                                                "name": "17",
+                                                "type": "text",
+                                                "label": "R"
+                                            },
+                                            {
+                                                "name": "18",
+                                                "type": "text",
+                                                "label": "S"
+                                            },
+                                            {
+                                                "name": "19",
+                                                "type": "text",
+                                                "label": "T"
+                                            },
+                                            {
+                                                "name": "20",
+                                                "type": "text",
+                                                "label": "U"
+                                            },
+                                            {
+                                                "name": "21",
+                                                "type": "text",
+                                                "label": "V"
+                                            },
+                                            {
+                                                "name": "22",
+                                                "type": "text",
+                                                "label": "W"
+                                            },
+                                            {
+                                                "name": "23",
+                                                "type": "text",
+                                                "label": "X"
+                                            },
+                                            {
+                                                "name": "24",
+                                                "type": "text",
+                                                "label": "Y"
+                                            },
+                                            {
+                                                "name": "25",
+                                                "type": "text",
+                                                "label": "Z"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Values in columns"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "module": "google-calendar:createAnEvent",
+                            "version": 5,
+                            "parameters": {
+                                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+                            },
+                            "mapper": {
+                                "end": "{{12.`10`}}",
+                                "start": "{{12.`9`}}",
+                                "select": "detail",
+                                "colorId": 1,
+                                "summary": "Shore Residences, Pasay (Tower A)",
+                                "calendar": "YOUR_CALENDAR_ID_HERE",
+                                "location": "YOUR_PROPERTY_MAP_LINK_HERE",
+                                "visibility": "default",
+                                "allDayEvent": true,
+                                "description": "Name: {{12.`1`}}\nContact : {{12.`3`}}\nClient Profile: {{12.`4`}}\nStay Category: {{12.`7`}}\nOccupancy Count: {{12.`5`}}\nMessage/ Request: {{12.`8`}}\n---\nUnit Package Inclusions:\nCity-view relaxation balcony, high-speed Wi-Fi, Netflix, gaming console, integrated karaoke setup, queen-sized bed, 2 sofas, extra group mattress, toiletries, rainfall shower, full climate control aircon, and a fully equipped kitchen.\n",
+                                "transparency": "opaque",
+                                "conferenceDate": false,
+                                "guestPermissions": {
+                                    "guestsCanModify": false,
+                                    "guestsCanInviteOthers": true,
+                                    "guestsCanSeeOtherGuests": true
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1479,
+                                    "y": 296
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "select": {
+                                            "label": "In Detail"
+                                        },
+                                        "colorId": {
+                                            "mode": "chose",
+                                            "label": "#a4bdfc (#1d1d1d)"
+                                        },
+                                        "calendar": {
+                                            "mode": "chose",
+                                            "label": "Casa De Lara By SMDC"
+                                        },
+                                        "attendees": {
+                                            "mode": "chose"
+                                        },
+                                        "eventType": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "overrides": {
+                                            "mode": "chose"
+                                        },
+                                        "recurrence": {
+                                            "mode": "chose"
+                                        },
+                                        "visibility": {
+                                            "mode": "chose",
+                                            "label": "Default"
+                                        },
+                                        "allDayEvent": {
+                                            "mode": "chose"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "sendUpdates": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "transparency": {
+                                            "mode": "chose",
+                                            "label": "Busy"
+                                        },
+                                        "conferenceDate": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "LARA's Google connection (your-email@example.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Create an Event",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "quick",
+                                                "detail"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "calendar",
+                                        "type": "select",
+                                        "label": "Calendar ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "summary",
+                                        "type": "text",
+                                        "label": "Event Name",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "conferenceDate",
+                                        "type": "boolean",
+                                        "label": "Add Google Meet Video Conferencing",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "attendees",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "displayName",
+                                                    "type": "text",
+                                                    "label": "Name"
+                                                },
+                                                {
+                                                    "name": "email",
+                                                    "type": "email",
+                                                    "label": "Email",
+                                                    "required": true
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Attendee"
+                                        },
+                                        "type": "array",
+                                        "label": "Attendees"
+                                    },
+                                    {
+                                        "name": "allDayEvent",
+                                        "type": "boolean",
+                                        "label": "All Day Event",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "start",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "Start Date",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "end",
+                                        "time": true,
+                                        "type": "date",
+                                        "label": "End Date"
+                                    },
+                                    {
+                                        "name": "duration",
+                                        "type": "time",
+                                        "label": "Duration"
+                                    },
+                                    {
+                                        "name": "eventType",
+                                        "type": "select",
+                                        "label": "Event Type",
+                                        "validate": {
+                                            "enum": [
+                                                "outOfOffice",
+                                                "focusTime"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "colorId",
+                                        "type": "select",
+                                        "label": "Color"
+                                    },
+                                    {
+                                        "name": "description",
+                                        "type": "text",
+                                        "label": "Description"
+                                    },
+                                    {
+                                        "name": "location",
+                                        "type": "text",
+                                        "label": "Location"
+                                    },
+                                    {
+                                        "name": "useDefault",
+                                        "type": "boolean",
+                                        "label": "Use the default reminder settings for this event"
+                                    },
+                                    {
+                                        "name": "overrides",
+                                        "spec": [
+                                            {
+                                                "name": "method",
+                                                "type": "select",
+                                                "label": "Method",
+                                                "options": [
+                                                    {
+                                                        "label": "Email",
+                                                        "value": "email"
+                                                    },
+                                                    {
+                                                        "label": "Pop-up",
+                                                        "value": "popup"
+                                                    }
+                                                ],
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "minutes",
+                                                "type": "uinteger",
+                                                "label": "Minutes",
+                                                "required": true,
+                                                "validate": {
+                                                    "max": 40320
+                                                }
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Reminders",
+                                        "validate": {
+                                            "maxItems": 5
+                                        }
+                                    },
+                                    {
+                                        "name": "transparency",
+                                        "type": "select",
+                                        "label": "Show me as",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "opaque",
+                                                "transparent"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "visibility",
+                                        "type": "select",
+                                        "label": "Visibility",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "default",
+                                                "public",
+                                                "private"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "sendUpdates",
+                                        "type": "select",
+                                        "label": "Send notifications about the event creation",
+                                        "validate": {
+                                            "enum": [
+                                                "all",
+                                                "externalOnly",
+                                                "none"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "guestPermissions",
+                                        "spec": [
+                                            {
+                                                "name": "guestsCanModify",
+                                                "type": "boolean",
+                                                "label": "Modify event",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "guestsCanInviteOthers",
+                                                "type": "boolean",
+                                                "label": "Invite others",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "guestsCanSeeOtherGuests",
+                                                "type": "boolean",
+                                                "label": "See guest list",
+                                                "required": true
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Guest Permissions"
+                                    },
+                                    {
+                                        "name": "recurrence",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Value"
+                                        },
+                                        "type": "array",
+                                        "label": "Recurrence"
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": [
+                                            {
+                                                "name": "fileUrl",
+                                                "type": "url",
+                                                "label": "File URL",
+                                                "required": true
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    }
+                                ],
+                                "advanced": true
+                            }
+                        },
+                        {
+                            "id": 14,
+                            "module": "google-email:createADraft",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+                            },
+                            "mapper": {
+                                "to": [
+                                    "{{12.`2`}}"
+                                ],
+                                "content": "{{16.candidates[].content.parts[].text}}",
+                                "subject": "Provisional Booking Confirmation: Casa De Lara by SMDC",
+                                "bodyType": "rawHtml"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1752,
+                                    "y": 289
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "from": {
+                                            "mode": "chose"
+                                        },
+                                        "folders": {
+                                            "mode": "chose"
+                                        },
+                                        "bodyType": {
+                                            "label": "Raw HTML"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "emailHeaders": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-email"
+                                            },
+                                            "label": "LARA's Gmail connection (your-email@example.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google-email",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "emailHeaders",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "key",
+                                                    "type": "text",
+                                                    "label": "Key",
+                                                    "required": true
+                                                },
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Value"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Email header"
+                                        },
+                                        "type": "array",
+                                        "label": "Additional email headers"
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "rawHtml",
+                                                "collection"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "filename",
+                                                    "type": "filename",
+                                                    "label": "File name",
+                                                    "required": true,
+                                                    "semantic": "file:name"
+                                                },
+                                                {
+                                                    "name": "data",
+                                                    "type": "buffer",
+                                                    "label": "Data",
+                                                    "required": true,
+                                                    "semantic": "file:data"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Attachment"
+                                        },
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address"
+                                        },
+                                        "type": "array",
+                                        "label": "CC recipients"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address"
+                                        },
+                                        "type": "array",
+                                        "label": "BCC recipients"
+                                    },
+                                    {
+                                        "name": "threadId",
+                                        "type": "text",
+                                        "label": "Thread ID"
+                                    },
+                                    {
+                                        "name": "folders",
+                                        "type": "select",
+                                        "label": "Folders",
+                                        "multiple": true
+                                    },
+                                    {
+                                        "name": "content",
+                                        "type": "text",
+                                        "label": "Content"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 21,
+                            "module": "google-sheets:updateRow",
+                            "version": 2,
+                            "parameters": {
+                                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+                            },
+                            "filter": {
+                                "name": "Fully Booked",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{19.`__IMTLENGTH__`}}",
+                                            "b": "0",
+                                            "o": "number:greater"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "mode": "map",
+                                "values": {
+                                    "11": "Fully Booked - Shore",
+                                    "12": "Thank you for your inquiry for Shore Residences. We are completely booked for your requested dates. {{12.`9`}}.  Kindly check our schedule calendar for booking availability."
+                                },
+                                "sheetId": "Form Responses 1",
+                                "rowNumber": "{{12.`__ROW_NUMBER__`}}",
+                                "spreadsheetId": "YOUR_SPREADSHEET_ID_HERE",
+                                "tableFirstRow": "A1:Z1",
+                                "valueInputOption": "USER_ENTERED"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": 600
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "mode": {
+                                            "label": "Enter manually"
+                                        },
+                                        "tableFirstRow": {
+                                            "label": "A-Z",
+                                            "nested": [
+                                                {
+                                                    "name": "values",
+                                                    "spec": [
+                                                        {
+                                                            "name": "0",
+                                                            "type": "text",
+                                                            "label": "A"
+                                                        },
+                                                        {
+                                                            "name": "1",
+                                                            "type": "text",
+                                                            "label": "B"
+                                                        },
+                                                        {
+                                                            "name": "2",
+                                                            "type": "text",
+                                                            "label": "C"
+                                                        },
+                                                        {
+                                                            "name": "3",
+                                                            "type": "text",
+                                                            "label": "D"
+                                                        },
+                                                        {
+                                                            "name": "4",
+                                                            "type": "text",
+                                                            "label": "E"
+                                                        },
+                                                        {
+                                                            "name": "5",
+                                                            "type": "text",
+                                                            "label": "F"
+                                                        },
+                                                        {
+                                                            "name": "6",
+                                                            "type": "text",
+                                                            "label": "G"
+                                                        },
+                                                        {
+                                                            "name": "7",
+                                                            "type": "text",
+                                                            "label": "H"
+                                                        },
+                                                        {
+                                                            "name": "8",
+                                                            "type": "text",
+                                                            "label": "I"
+                                                        },
+                                                        {
+                                                            "name": "9",
+                                                            "type": "text",
+                                                            "label": "J"
+                                                        },
+                                                        {
+                                                            "name": "10",
+                                                            "type": "text",
+                                                            "label": "K"
+                                                        },
+                                                        {
+                                                            "name": "11",
+                                                            "type": "text",
+                                                            "label": "L"
+                                                        },
+                                                        {
+                                                            "name": "12",
+                                                            "type": "text",
+                                                            "label": "M"
+                                                        },
+                                                        {
+                                                            "name": "13",
+                                                            "type": "text",
+                                                            "label": "N"
+                                                        },
+                                                        {
+                                                            "name": "14",
+                                                            "type": "text",
+                                                            "label": "O"
+                                                        },
+                                                        {
+                                                            "name": "15",
+                                                            "type": "text",
+                                                            "label": "P"
+                                                        },
+                                                        {
+                                                            "name": "16",
+                                                            "type": "text",
+                                                            "label": "Q"
+                                                        },
+                                                        {
+                                                            "name": "17",
+                                                            "type": "text",
+                                                            "label": "R"
+                                                        },
+                                                        {
+                                                            "name": "18",
+                                                            "type": "text",
+                                                            "label": "S"
+                                                        },
+                                                        {
+                                                            "name": "19",
+                                                            "type": "text",
+                                                            "label": "T"
+                                                        },
+                                                        {
+                                                            "name": "20",
+                                                            "type": "text",
+                                                            "label": "U"
+                                                        },
+                                                        {
+                                                            "name": "21",
+                                                            "type": "text",
+                                                            "label": "V"
+                                                        },
+                                                        {
+                                                            "name": "22",
+                                                            "type": "text",
+                                                            "label": "W"
+                                                        },
+                                                        {
+                                                            "name": "23",
+                                                            "type": "text",
+                                                            "label": "X"
+                                                        },
+                                                        {
+                                                            "name": "24",
+                                                            "type": "text",
+                                                            "label": "Y"
+                                                        },
+                                                        {
+                                                            "name": "25",
+                                                            "type": "text",
+                                                            "label": "Z"
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Values in columns"
+                                                }
+                                            ]
+                                        },
+                                        "valueInputOption": {
+                                            "mode": "chose",
+                                            "label": "User entered"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "LARA's Google connection (your-email@example.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "mode",
+                                        "type": "select",
+                                        "label": "Search Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "select",
+                                                "fromAll",
+                                                "map"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "valueInputOption",
+                                        "type": "select",
+                                        "label": "Value input option",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "USER_ENTERED",
+                                                "RAW"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "spreadsheetId",
+                                        "type": "text",
+                                        "label": "Spreadsheet ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "sheetId",
+                                        "type": "text",
+                                        "label": "Sheet Name",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "rowNumber",
+                                        "type": "uinteger",
+                                        "label": "Row number",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "tableFirstRow",
+                                        "type": "select",
+                                        "label": "Column range",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "A1:Z1",
+                                                "A1:BZ1",
+                                                "A1:CZ1",
+                                                "A1:DZ1",
+                                                "A1:MZ1",
+                                                "A1:ZZ1"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "values",
+                                        "spec": [
+                                            {
+                                                "name": "0",
+                                                "type": "text",
+                                                "label": "A"
+                                            },
+                                            {
+                                                "name": "1",
+                                                "type": "text",
+                                                "label": "B"
+                                            },
+                                            {
+                                                "name": "2",
+                                                "type": "text",
+                                                "label": "C"
+                                            },
+                                            {
+                                                "name": "3",
+                                                "type": "text",
+                                                "label": "D"
+                                            },
+                                            {
+                                                "name": "4",
+                                                "type": "text",
+                                                "label": "E"
+                                            },
+                                            {
+                                                "name": "5",
+                                                "type": "text",
+                                                "label": "F"
+                                            },
+                                            {
+                                                "name": "6",
+                                                "type": "text",
+                                                "label": "G"
+                                            },
+                                            {
+                                                "name": "7",
+                                                "type": "text",
+                                                "label": "H"
+                                            },
+                                            {
+                                                "name": "8",
+                                                "type": "text",
+                                                "label": "I"
+                                            },
+                                            {
+                                                "name": "9",
+                                                "type": "text",
+                                                "label": "J"
+                                            },
+                                            {
+                                                "name": "10",
+                                                "type": "text",
+                                                "label": "K"
+                                            },
+                                            {
+                                                "name": "11",
+                                                "type": "text",
+                                                "label": "L"
+                                            },
+                                            {
+                                                "name": "12",
+                                                "type": "text",
+                                                "label": "M"
+                                            },
+                                            {
+                                                "name": "13",
+                                                "type": "text",
+                                                "label": "N"
+                                            },
+                                            {
+                                                "name": "14",
+                                                "type": "text",
+                                                "label": "O"
+                                            },
+                                            {
+                                                "name": "15",
+                                                "type": "text",
+                                                "label": "P"
+                                            },
+                                            {
+                                                "name": "16",
+                                                "type": "text",
+                                                "label": "Q"
+                                            },
+                                            {
+                                                "name": "17",
+                                                "type": "text",
+                                                "label": "R"
+                                            },
+                                            {
+                                                "name": "18",
+                                                "type": "text",
+                                                "label": "S"
+                                            },
+                                            {
+                                                "name": "19",
+                                                "type": "text",
+                                                "label": "T"
+                                            },
+                                            {
+                                                "name": "20",
+                                                "type": "text",
+                                                "label": "U"
+                                            },
+                                            {
+                                                "name": "21",
+                                                "type": "text",
+                                                "label": "V"
+                                            },
+                                            {
+                                                "name": "22",
+                                                "type": "text",
+                                                "label": "W"
+                                            },
+                                            {
+                                                "name": "23",
+                                                "type": "text",
+                                                "label": "X"
+                                            },
+                                            {
+                                                "name": "24",
+                                                "type": "text",
+                                                "label": "Y"
+                                            },
+                                            {
+                                                "name": "25",
+                                                "type": "text",
+                                                "label": "Z"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Values in columns"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 35,
+                            "module": "builtin:BasicRouter",
+                            "version": 1,
+                            "filter": null,
+                            "mapper": null,
+                            "metadata": {
+                                "designer": {
+                                    "x": 1157,
+                                    "y": 617
+                                }
+                            },
+                            "routes": [
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 22,
+                                            "module": "google-email:createADraft",
+                                            "version": 4,
+                                            "parameters": {
+                                                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+                                            },
+                                            "filter": {
+                                                "name": "Shore Fully Booked",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{12.`6`}}",
+                                                            "b": "Shore Residences, Pasay (Tower A)",
+                                                            "o": "text:contain:ci"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "to": [
+                                                    "{{12.`2`}}"
+                                                ],
+                                                "subject": "Booking Update: Shore Unit Unavailable",
+                                                "bodyType": "rawHtml",
+                                                "content": "<p>Dear <strong>{{12.`1`}}</strong>,</p>\n\n<p>Thank you for your interest in staying with us! We appreciate your inquiry regarding our Shore Residences unit.</p>\n\n<p>Due to high demand, our Shore unit is unfortunately <strong>fully booked for your requested date/s. </strong> </p>\n\n<p>If your dates are flexible, use our <strong>Live Booking Calendar </strong>below to easily find alternative options. Tap the box below to view real-time availability.</p>\r\n\r\n<p style=\"margin: 20px 0;\">\r\n  <a href=\"https://google.com" target=\"_blank\" style=\"background-color: #1a73e8; color: white; padding: 12px 20px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block;\">📅CASA DE LARA LIVE BOOKING CALENDAR</a>\r\n</p>\r\n\r\n<p>Once you find your perfect alternative dates, simply reply directly to this email! We will be delighted to place an immediate hold on your spot, provide your personalized cost breakdown, and guide you through the final steps to secure your booking.</p>\n\n<p>Looking forward to hosting you!</p>\n\n<p>Best regards,<br>\n<strong>Casa De Lara Management</strong></p>\n"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 1455,
+                                                    "y": 545
+                                                },
+                                                "restore": {
+                                                    "parameters": {
+                                                        "__IMTCONN__": {
+                                                            "label": "LARA's Gmail connection (your-email@example.com)",
+                                                            "data": {
+                                                                "scoped": "true",
+                                                                "connection": "google-email"
+                                                            }
+                                                        }
+                                                    },
+                                                    "expect": {
+                                                        "from": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "to": {
+                                                            "mode": "chose",
+                                                            "items": [
+                                                                null
+                                                            ]
+                                                        },
+                                                        "emailHeaders": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "bodyType": {
+                                                            "label": "Raw HTML"
+                                                        },
+                                                        "attachments": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "cc": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "bcc": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "folders": {
+                                                            "mode": "chose"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account:google-email",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "from",
+                                                        "type": "select",
+                                                        "label": "From"
+                                                    },
+                                                    {
+                                                        "name": "to",
+                                                        "type": "array",
+                                                        "label": "To",
+                                                        "required": true,
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Recipient email address",
+                                                            "required": true,
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "emailHeaders",
+                                                        "type": "array",
+                                                        "label": "Additional email headers",
+                                                        "spec": {
+                                                            "spec": [
+                                                                {
+                                                                    "name": "key",
+                                                                    "type": "text",
+                                                                    "label": "Key",
+                                                                    "required": true
+                                                                },
+                                                                {
+                                                                    "name": "value",
+                                                                    "type": "text",
+                                                                    "label": "Value"
+                                                                }
+                                                            ],
+                                                            "type": "collection",
+                                                            "label": "Email header",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "subject",
+                                                        "type": "text",
+                                                        "label": "Subject"
+                                                    },
+                                                    {
+                                                        "name": "bodyType",
+                                                        "type": "select",
+                                                        "label": "Body type",
+                                                        "required": true,
+                                                        "validate": {
+                                                            "enum": [
+                                                                "rawHtml",
+                                                                "collection"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "attachments",
+                                                        "type": "array",
+                                                        "label": "Attachments",
+                                                        "spec": {
+                                                            "spec": [
+                                                                {
+                                                                    "name": "filename",
+                                                                    "type": "filename",
+                                                                    "label": "File name",
+                                                                    "required": true,
+                                                                    "semantic": "file:name"
+                                                                },
+                                                                {
+                                                                    "name": "data",
+                                                                    "type": "buffer",
+                                                                    "label": "Data",
+                                                                    "required": true,
+                                                                    "semantic": "file:data"
+                                                                }
+                                                            ],
+                                                            "type": "collection",
+                                                            "label": "Attachment",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "cc",
+                                                        "type": "array",
+                                                        "label": "CC recipients",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Recipient email address",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "bcc",
+                                                        "type": "array",
+                                                        "label": "BCC recipients",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Recipient email address",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "threadId",
+                                                        "type": "text",
+                                                        "label": "Thread ID"
+                                                    },
+                                                    {
+                                                        "name": "folders",
+                                                        "type": "select",
+                                                        "label": "Folders",
+                                                        "multiple": true
+                                                    },
+                                                    {
+                                                        "name": "content",
+                                                        "type": "text",
+                                                        "label": "Content"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 36,
+                                            "module": "google-email:createADraft",
+                                            "version": 4,
+                                            "parameters": {
+                                                "__IMTCONN__": "YOUR_CONNECTION_ID_HERE"
+                                            },
+                                            "filter": {
+                                                "name": "Jazz Fully Booked",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{12.`6`}}",
+                                                            "b": "Jazz",
+                                                            "o": "text:contain:ci"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "to": [
+                                                    "{{12.`2`}}"
+                                                ],
+                                                "subject": "Booking Update: Jazz Unit Unavailable",
+                                                "bodyType": "rawHtml",
+                                                "content": "<p>Dear <strong>{{12.`1`}}</strong>,</p>\n\n<p>Thank you for your interest in staying with us! We appreciate your inquiry regarding our Jazz unit.</p>\n\n<p>Due to high demand, our Jazz unit is currently <strong>fully booked for your requested date/s.</strong> However, because we want to ensure you have a wonderful stay, we have two excellent options ready for you right now:</p>\n\n<ol>\n  <li><strong>Book our Shore Residences Unit (Highly Recommended): </strong> If your travel dates are fixed, we highly recommend securing our highly popular Shore Residences Tower A unit instead. It offers premium resort-style amenities, a very accessible location, and currently has prime availability that matches your timeline perfectly. This unit fills up incredibly fast!</li>\n  <li><strong>Reserve the Jazz Unit (January 20, 2027 Onwards): </strong>If your dates are flexible, use our <strong>Live Booking Calendar </strong>below to easily find alternative options. You can lock in your stay ahead of the peak season crowd. Tap the box below to view real-time availability.</li>\n</ol>\n\n<p style=\"margin-left: 40px; margin-top: 20px; margin-bottom: 20px;\">\r\n  <a href=\"https://google.com" target=\"_blank\" style=\"background-color: #1a73e8; color: white; padding: 12px 20px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block;\">📅CASA DE LARA LIVE BOOKING CALENDAR</a>\r\n</p>\n\n<p>Both options are heavily sought after: (<strong>Option 1: Shore Residences</strong> or <strong>Option 2: Post-01/19/2027 alternative date</strong>)</p>\n\n<p>To secure your preferred choice before slots are taken, please reply directly to this email. We will be delighted to place an immediate hold on your spot, provide your personalized cost breakdown, and guide you through the final steps to secure your booking.</p>  \n\n<p>Looking forward to hosting you!</p>\n\n<p>Best regards,<br>\n<strong>Casa De Lara Management</strong></p>"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 1448,
+                                                    "y": 788
+                                                },
+                                                "restore": {
+                                                    "parameters": {
+                                                        "__IMTCONN__": {
+                                                            "label": "LARA's Gmail connection (your-email@example.com)",
+                                                            "data": {
+                                                                "scoped": "true",
+                                                                "connection": "google-email"
+                                                            }
+                                                        }
+                                                    },
+                                                    "expect": {
+                                                        "from": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "to": {
+                                                            "mode": "chose",
+                                                            "items": [
+                                                                null
+                                                            ]
+                                                        },
+                                                        "emailHeaders": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "bodyType": {
+                                                            "label": "Raw HTML"
+                                                        },
+                                                        "attachments": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "cc": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "bcc": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "folders": {
+                                                            "mode": "chose"
+                                                        }
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account:google-email",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "from",
+                                                        "type": "select",
+                                                        "label": "From"
+                                                    },
+                                                    {
+                                                        "name": "to",
+                                                        "type": "array",
+                                                        "label": "To",
+                                                        "required": true,
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Recipient email address",
+                                                            "required": true,
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "emailHeaders",
+                                                        "type": "array",
+                                                        "label": "Additional email headers",
+                                                        "spec": {
+                                                            "spec": [
+                                                                {
+                                                                    "name": "key",
+                                                                    "type": "text",
+                                                                    "label": "Key",
+                                                                    "required": true
+                                                                },
+                                                                {
+                                                                    "name": "value",
+                                                                    "type": "text",
+                                                                    "label": "Value"
+                                                                }
+                                                            ],
+                                                            "type": "collection",
+                                                            "label": "Email header",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "subject",
+                                                        "type": "text",
+                                                        "label": "Subject"
+                                                    },
+                                                    {
+                                                        "name": "bodyType",
+                                                        "type": "select",
+                                                        "label": "Body type",
+                                                        "required": true,
+                                                        "validate": {
+                                                            "enum": [
+                                                                "rawHtml",
+                                                                "collection"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "attachments",
+                                                        "type": "array",
+                                                        "label": "Attachments",
+                                                        "spec": {
+                                                            "spec": [
+                                                                {
+                                                                    "name": "filename",
+                                                                    "type": "filename",
+                                                                    "label": "File name",
+                                                                    "required": true,
+                                                                    "semantic": "file:name"
+                                                                },
+                                                                {
+                                                                    "name": "data",
+                                                                    "type": "buffer",
+                                                                    "label": "Data",
+                                                                    "required": true,
+                                                                    "semantic": "file:data"
+                                                                }
+                                                            ],
+                                                            "type": "collection",
+                                                            "label": "Attachment",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "cc",
+                                                        "type": "array",
+                                                        "label": "CC recipients",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Recipient email address",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "bcc",
+                                                        "type": "array",
+                                                        "label": "BCC recipients",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Recipient email address",
+                                                            "name": "value"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "threadId",
+                                                        "type": "text",
+                                                        "label": "Thread ID"
+                                                    },
+                                                    {
+                                                        "name": "folders",
+                                                        "type": "select",
+                                                        "label": "Folders",
+                                                        "multiple": true
+                                                    },
+                                                    {
+                                                        "name": "content",
+                                                        "type": "text",
+                                                        "label": "Content"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": true,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.make.com",
+        "notes": []
+    }
+}
