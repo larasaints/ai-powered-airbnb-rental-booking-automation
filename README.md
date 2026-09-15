@@ -22,34 +22,28 @@ The workflow operates via a tightly decoupled 4-tier processing layout:
 
 ## 📊 System Architecture (Backend Workflow)
 Below is the event-driven logical pipeline built to process, filter, and route the inbound short-term rental data:<br>
-<img width="1071" height="494" alt="The Architecture Make Scenario Layout" src="https://github.com/user-attachments/assets/d26e749f-cdff-4fae-a778-59359deeede2" />
+<img src="./assets/The%20Architecture%20Make%20Scenario%20Layout.png" alt="Make.com System Architecture" width="500"/>
 
 
 ---
 ## 📅 Data Ingestion & State Database (Google Sheets)
 This sheet functions as the operational database layer, catching inbound submissions and storing AI categorization states alongside calculated response strings: <br>
-<img width="1115" height="543" alt="The Data Flow Google Sheet Headers" src="https://github.com/user-attachments/assets/f52ccf8e-7551-471f-8d1b-dcc24d226bdb" />
+<img src="./assets/The%20Data%20Flow%20Google%20Sheet%20Headers.png" alt="Google Sheets Data Tracking Layer" width="500"/>
 
 
 ---
 ## 📧 Live Output Generation Demo (Frontend Result)
 This is the final production-ready raw HTML email template dynamically calculated and staged inside Gmail by the engine:
 
-<strong> Gmail Draft Output Demo Test 01 Jazz Available</strong> <br>
-<img width="1216" height="2368" alt="Test01 Jazz Available" src="https://github.com/user-attachments/assets/acb80004-c872-442f-bf45-0f34f06e9237" />
+### 🏢 Unit 1 Gmail Draft AI Output Demo Test 01 & 02
 
+| 🟢 Unit Available Layout | 🔴 Unit Unavailable Layout |
+| :---: | :---: |
+| <img src="./assets/Email%20Demo%20Test%2001%20Jazz%20Available.png" alt="Jazz Available" width="280"/> | <img src="./assets/Email%20Demo%20Test%2002%20Jazz%20Unavailable.png" alt="Jazz Unavailable" width="280"/> |
 
-<strong> Gmail Draft Output Demo Test 02 Jazz Unvailable</strong> <br>
-<img width="1160" height="1168" alt="Test 02 Jazz Unavailable" src="https://github.com/user-attachments/assets/110dc08f-d729-4c29-9376-76058c661db0" />
+### 🏖️ Unit 2 Gmail Draft AI Output Demo Test 03 & 04
 
-
-<strong> Gmail Draft Output Demo Test 03 Shore Available</strong> <br>
-<img width="1184" height="1500" alt="Test03 Shore Available" src="https://github.com/user-attachments/assets/99de4e89-b459-476a-9150-e807e063a775" />
-
-
-<strong> Gmail Draft Output Demo Test 04 Shore Unavailable</strong> <br>
-<img width="1160" height="568" alt="Test 4 Shore Unavailable" src="https://github.com/user-attachments/assets/a98d5583-3358-4754-8fdc-326e53de4dd6" />
-
-
-
+| 🟢 Unit Available Layout | 🔴 Unit Unavailable Layout |
+| :---: | :---: |
+| <img src="./assets/Email%20Demo%20Test%2003%20Shore%20Available.png" alt="Shore Available" width="280"/> | <img src="./assets/Email%20Demo%20Test%2004%20Shore%20Unavailable.png" alt="Shore Unavailable" width="280"/> |
 
